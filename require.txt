@@ -1,0 +1,62 @@
+yarn add apollo-server
+yarn add apollo-server-express express graphql reflect-metadata type-graphql
+yarn add dotenv
+yarn add bcryptjs
+yarn add class-validator
+yarn add pg typeorm
+yarn add jsonwebtoken
+yarn add cookie-parser
+
+yarn add  -D @types/express 0 @types/node ts-node typescript ts-node-dev
+yarn add -D @types/dotenv
+yarn add -D @types/bcryptjs
+yarn add -D @types/jsonwebtoken
+yarn add  -D @types/cookie-parser
+
+tsconfig.json
+
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "declaration": false,
+
+    "composite": false,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": "src"
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+  "references": [{ "path": "../common" }]
+}
+
+
+apollo federation
+
+dir: helpers
+yarn add graphql @apollo/federation apollo-graphql
+
+
+apollo gateway
+
+yarn add apollo-server @apollo/gateway
+
+
+    "dropDatabase":false,
