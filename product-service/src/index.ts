@@ -18,7 +18,9 @@ const main = async () =>{
     const schema = await FederatedSchema
 
     const server = new ApolloServer({
-        schema
+        schema,
+        tracing:false,
+        playground:true
     });
 
     const app = express()

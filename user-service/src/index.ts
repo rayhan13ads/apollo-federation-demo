@@ -22,6 +22,8 @@ const main = async () =>{
     const server = new ApolloServer({
         schema,
         formatError:graphalFormatError,
+        tracing:false,
+        playground:true,
         context: ({req, res}:any) =>({req,res})
     });
 

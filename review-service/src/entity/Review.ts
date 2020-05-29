@@ -1,5 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+import { Product } from "../modules/product/Product";
+import { User } from "../modules/user/User";
+import { Type } from "class-transformer";
+
 
 
 @ObjectType()
@@ -14,12 +18,14 @@ export class Review extends BaseEntity {
     @Column()
     body: string;
 
-    @Field()
+   
+    @Field(()=> User,{name:"user"})
     @Column()
-    userId: string;
+    userId: number;
 
-    @Field()
+   
+    @Field(()=> Product,{name:"product"})
     @Column()
-    productId: string;
+    productId: number;
 
 }

@@ -1,43 +1,54 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx, Int } from 'type-graphql'
 import { User } from '../../entity/User';
+import { compare } from 'bcryptjs';
+import { LoginResponse } from '../types/LoginResponse';
 import { sign } from 'jsonwebtoken';
-import * as bcrypt from 'bcryptjs'
-import { MyContext } from '../../utils/myContext';
-import { TokenRes } from '../types/TokenRes';
-import SetJwtToken  from '../../utils/setJwtToken';
-import { Tokens } from '../../utils/setJwtToken';
-
-
+import { MyContext } from '../types/MyContext';
+import { createRefreshToken, createAccessToken } from '../types/Auth';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class LoginResolver {
-    @Mutation(() => TokenRes)
+    @Mutation(() => LoginResponse)
     async login(
-        @Arg("email") email: string,
-        @Arg("password") password: string,
-        @Ctx() ctx: MyContext
-    ): Promise<TokenRes> {
+        @Arg('email') email: string,
+        @Arg('password') password: string,
+        @Ctx() { req, res }: MyContext
+    ): Promise<LoginResponse> {
 
         const user = await User.findOne({ where: { email } })
+
         if (!user) {
-            throw new Error("User not found!");
-        }
-        const validPassword = await bcrypt.compare(password, user.password)
-
-        if (!validPassword) {
-            throw new Error("Password dose not match!!")
+            throw new Error('could not find user')
         }
 
-        const tokens:Tokens = SetJwtToken(user)
+        const valid = await compare(password, user.password)
 
-        const tokenRes = new TokenRes()
-        tokenRes.user =user
-        tokenRes.tokenType='Bearer'
-        tokenRes.accessToken = tokens.access
-        tokenRes.refreshToken = tokens.refresh
+        if (!valid) {
+            throw new Error('bad password')
+        }
 
-        return tokenRes
+        res.cookie('jid', createRefreshToken(user), { httpOnly: true })
+
+        return {
+            success:true,
+            accessToken: createAccessToken(user)
+
+        }
+
     }
+
+    @Mutation(() => Boolean)
+    async revokeRefreshTokenForUser(@Arg('userId', () => Int) userId: number): Promise<boolean> {
+        try {
+            await getConnection().getRepository(User).increment({ id: userId }, "tokenVersion", 1)
+            return true
+        } catch (error) {
+            console.log(error);
+            return false
+        }
+    }
+
 
 
 }

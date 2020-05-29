@@ -1,9 +1,9 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, Directive } from "type-graphql";
 import { User } from '../modules/user/User';
 
 
-
+@Directive(`@key(fields:"id")`)
 @ObjectType()
 @Entity()
 export class Product extends BaseEntity {
@@ -24,7 +24,7 @@ export class Product extends BaseEntity {
     @Column()
     price: number;
     
-    @Field(()=>User,{name:"User"})
+    @Field(()=> User,{name:"User"})
     @Column()
-    userId: string;
+    userId: number;
 }
