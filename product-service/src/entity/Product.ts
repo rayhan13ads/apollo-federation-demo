@@ -24,7 +24,7 @@ export class Product extends BaseEntity {
     @Column()
     price: number;
     
-    @Field(()=> User,{name:"User"})
+    @Field(()=> User,{name:"user"})
     @Column()
     userId: number;
 }

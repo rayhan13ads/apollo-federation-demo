@@ -7,6 +7,8 @@ import { FederatedSchema } from './utils/createSchema';
 import { graphalFormatError } from './utils/errorFormat';
 import * as cookieParser from 'cookie-parser'
 import { verify } from 'jsonwebtoken'
+import { MyContext } from './modules/types/MyContext'
+
 
 dotenv.config({ path:".env" })
 

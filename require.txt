@@ -6,12 +6,14 @@ yarn add class-validator
 yarn add pg typeorm
 yarn add jsonwebtoken
 yarn add cookie-parser
+yarn add express-jwt
 
 yarn add  -D @types/express 0 @types/node ts-node typescript ts-node-dev
 yarn add -D @types/dotenv
 yarn add -D @types/bcryptjs
 yarn add -D @types/jsonwebtoken
 yarn add  -D @types/cookie-parser
+yarn add  -D @types/express-jwt
 
 tsconfig.json
 
