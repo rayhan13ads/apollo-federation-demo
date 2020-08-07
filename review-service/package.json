@@ -14,7 +14,7 @@
     "@apollo/federation": "^0.16.0",
     "apollo-graphql": "^0.4.4",
     "apollo-server-express": "^2.13.1",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
